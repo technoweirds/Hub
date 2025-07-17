@@ -211,7 +211,7 @@
                             </div>
                             <div class="col-lg-5">
 
-                                <form class="contact-pg">
+                                <form class="contact-pg mb-2">
                                     <div class="row ">
                                         <div class="col-sm-6 col-md-6">
                                             <input type="email" class="form-control" placeholder="Email"
@@ -247,16 +247,20 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4">
-                                <div class="vid-box mb-40">
-                                    <video autoplay="" muted="" disablepictureinpicture="" controlslist="nodownload"
-                                        poster="https://uithemez.com/i/hubfolio_HTML/modern_business/assets/imgs/vid.jpg">
-                                        <source
-                                            src="https://uithemez.com/i/hubfolio_HTML/modern_business/assets/imgs/vid.mp4">
-                                    </video>
+                            <div class="col-lg-6 ">
+                                <div class="mb-40">
+                                    <iframe width="700" height="315"
+                                        src="https://www.youtube.com/embed/rYQgy8QDEBI?si=cRdq9fIjHk8NAjo4&amp;controls=1"
+                                        title="YouTube video player"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        allowfullscreen
+                                        style="border-radius: 20px; overflow: hidden;">
+                                    </iframe>
                                 </div>
                             </div>
-                            <div class="col-lg-7 offset-lg-1">
+                            <div class="col-lg-4 offset-lg-2">
                                 <div class="feat row justify-content-between">
                                     <div class="col-md-5">
                                         <div class="item md-mb50">
@@ -1174,21 +1178,81 @@
                         </div>
                     </div>
                 </section>
-                <div id="videoPopup" class="video-pip-container">
-                    <div class="video-pip-content">
-                        <button id="closePopup" class="close-button">
-                            &times;
-                        </button>
-                        <div class="video-container">
-                            <!-- Replace 'YOUR_VIDEO_ID' with the actual YouTube video ID -->
-                            <iframe width="560" height="315" id="youtubeVideo"
-                                src="https://www.youtube.com/embed/1Gh7IsYsNkM?si=NeUxud3EijQOe80v&autoplay=1"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen autoplay="1"></iframe>
-                            <!-- <iframe id="youtubeVideo" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-                        </div>
-                    </div>
+                  <div id="videoPopup" class="video-pip-container">
+        <div class="video-pip-content">
+            <button id="closePopup" class="close-button">
+                &times;
+            </button>
+            <div class="video-container">
+                <iframe width="560" height="315" id="youtubeVideo"
+                    src="https://www.youtube.com/embed/YOUR_VIDEO_ID?enablejsapi=1&autoplay=1"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoPopup = document.getElementById('videoPopup');
+            const closePopupBtn = document.getElementById('closePopup');
+            const youtubeVideoIframe = document.getElementById('youtubeVideo');
+
+            // Load the YouTube IFrame API asynchronously
+            var tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            var player; // YouTube player object
+            function onYouTubeIframeAPIReady() {
+                player = new YT.Player('youtubeVideo', {
+                    events: {
+                        'onReady': onPlayerReady
+                    }
+                });
+            }
+            window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady; // Make available globally
+
+            function onPlayerReady(event) {
+                // If you want to autoplay, consider putting it here, but be aware of browser policies.
+                // event.target.playVideo();
+            }
+
+            function showPopup() {
+                videoPopup.classList.add('show');
+                // Play the video when the popup is shown
+                if (player && typeof player.playVideo === 'function') {
+                    player.playVideo();
+                }
+            }
+
+            function hidePopup() {
+                videoPopup.classList.remove('show');
+                // Stop the YouTube video when closing the PiP
+                if (player && typeof player.pauseVideo === 'function') {
+                    player.pauseVideo();
+                }
+            }
+
+            // Show PiP when the page loads
+            showPopup();
+
+            // Close PiP when the close button is clicked
+            closePopupBtn.addEventListener('click', hidePopup);
+
+            // Optional: Close PiP when clicking outside the video content
+            // Be careful with this for PiP as it might lead to unintentional closures.
+            // If you want this, ensure the click is not on the video itself.
+            document.addEventListener('click', (event) => {
+                if (!videoPopup.contains(event.target) && videoPopup.classList.contains('show') && event.target !== youtubeVideoIframe) {
+                    hidePopup();
+                }
+            });
+        });
+    </script>
+                
                     <!-- ==================== End Blog ==================== -->
             </main>
             <!-- ==================== Start Footer ==================== -->
@@ -1299,19 +1363,17 @@
     <script src="Master/common_scripts.js"></script>
     <!-- custom scripts -->
     <script src="Master/scripts.js"></script>
-    <script>
+    <!-- <script>
 
         document.addEventListener('DOMContentLoaded', () => {
             const videoPopup = document.getElementById('videoPopup');
             const closePopupBtn = document.getElementById('closePopup');
             const youtubeVideoIframe = document.getElementById('youtubeVideo');
-
-            // Function to show the PiP video
+            console.log(1233);
             function showPopup() {
                 videoPopup.classList.add('show');
             }
 
-            // Function to hide the PiP video and stop the video
             function hidePopup() {
                 videoPopup.classList.remove('show');
                 // Stop the YouTube video when closing the PiP
@@ -1336,7 +1398,7 @@
                 }
             });
         });
-    </script>
+    </script> -->
     <div id="extension-mmplj"></div>
 </body>
 

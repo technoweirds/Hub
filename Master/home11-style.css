@@ -81,6 +81,8 @@
   .header-ms .award-box {
     padding: 70px 40px 40px;
     border-radius: 30px;
+    width: 100%;
+    height: 500px;
     background: var(--bg-color);
     color: #2A2D2F;
     position: relative; }
@@ -609,3 +611,105 @@ p {
     display: block !important; }
     .hero-ms .qoutes .text {
       margin: 15px 0 0 0 !important; } }
+
+.bg-dark{
+  background-color: #979696;
+
+}
+
+.customform {
+  opacity: 0.3;
+}
+
+.customform:hover {
+  opacity: 1.0;
+}
+        .video-pip-container {
+                  position: fixed;
+                  bottom: 1rem; /* Distance from bottom */
+                  right: 1rem; /* Distance from right */
+                  z-index: 1000; /* Ensure it's on top of other content */
+                  width: 450px; /* Fixed width for the PiP window */
+                  height: auto; /* Height will adjust based on content */
+                  display: none; /* Initially hidden */
+                  transition: transform 0.3s ease-out; /* Smooth transition for showing/hiding */
+              }
+
+        .video-pip-container.show {
+            display: block; /* Show when 'show' class is added */
+        }
+
+        .video-pip-content {
+            background-color: white;
+            padding: 0.5rem; /* Smaller padding for a compact look */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Stronger shadow for floating effect */
+            position: relative; /* Needed for close button positioning */
+            width: 100%; /* Fill the parent container's width */
+            height: 100%;
+        }
+
+        /* Responsive iframe container for YouTube video */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 9999px; /* rounded-full */
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.25rem;
+            cursor: pointer;
+            z-index: 1010; /* Above the video content */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s ease;
+        }
+
+        .close-button:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        /* Media queries for smaller screens */
+        @media (max-width: 768px) {
+            .video-pip-container {
+                width: 90%; /* Make it wider on smaller screens */
+                bottom: 0.5rem; /* Adjust position for mobile */
+                right: 0.5rem;
+                left: 0.5rem; /* Center it roughly by setting left and right */
+                margin: 0 auto; /* Center horizontally */
+            }
+
+            .video-pip-content {
+                margin-right: 0; /* Remove right margin */
+            }
+        }
+
+        /* Media queries for smaller screens */
+        @media (max-width: 768px) {
+            .video-popup-content {
+                width: 95%; /* Make it wider on smaller screens */
+                margin-right: 0.5rem; /* Reduce margin */
+            }
+        }
